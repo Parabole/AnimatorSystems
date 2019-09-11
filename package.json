@@ -1,0 +1,12 @@
+{
+    "name": "com.parabole.animatorsystems",
+    "version": "0.0.1",
+    "displayName": "Parabole Animator Systems",
+    "unity": "2019.1",
+    "description": "DOTS utilities to handle Animators in Unity.",
+    "dependencies": 
+    {
+      "com.unity.entities": "0.1.1",
+      "com.unity.mathematics": "1.1.0"
+    }
+}
