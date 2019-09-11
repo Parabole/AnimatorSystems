@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    public class SetAnimatorParametersAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class ParametersConversion : MonoBehaviour, IConvertGameObjectToEntity
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private IntParameter[]  _intParameters;
@@ -61,6 +61,11 @@ namespace Parabole.AnimatorSystems
             triggerElement.Value = parameter.value;
             triggerBuffer.Add(triggerElement);
         }
+        
+                
+        #if UNITY_EDITOR
+        dstManager.SetName(entity, "AnimatorSystems.Parameters" );
+        #endif
     }
 
     [System.Serializable]
