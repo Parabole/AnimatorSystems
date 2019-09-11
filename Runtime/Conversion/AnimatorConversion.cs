@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    public class StateInfoConversion : MonoBehaviour, IConvertGameObjectToEntity
+    public class AnimatorConversion : MonoBehaviour, IConvertGameObjectToEntity
     {
-        
         [SerializeField] private Animator _animator;
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
