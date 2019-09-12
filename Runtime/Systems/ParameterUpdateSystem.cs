@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
     public abstract class ParameterUpdateSystem: ComponentSystem 
     {
         private EntityQueryDesc m_QueryDesc;
@@ -17,7 +18,8 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    typeof(Animator),typeof(DynamicBuffer<FloatParameter>),
+                    typeof(Animator),
+                    typeof(DynamicBuffer<FloatParameter>),
                     typeof(DynamicBuffer<IntParameter>),
                     typeof(DynamicBuffer<BoolParameter>),
                     typeof(DynamicBuffer<TriggerParameter>)
