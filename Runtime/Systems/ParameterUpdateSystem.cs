@@ -32,6 +32,7 @@ namespace Parabole.AnimatorSystems
                 {
                     UpdateParameter(animator, b);
                 }
+                buffer.Clear();
             });
         }
         

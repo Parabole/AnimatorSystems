@@ -11,14 +11,14 @@ namespace Parabole.AnimatorSystems
         {
             dstManager.AddComponentObject(entity, _animator);
 
-            var buffer = dstManager.AddBuffer<StateInfo>(entity);
-            var element = new StateInfo();
+            var stateInfoBuffer = dstManager.AddBuffer<StateInfo>(entity);
+            var stateInfoElement = new StateInfo();
             
             for (int i = 0; i < _animator.layerCount; i++)
             {
                 var info = _animator.GetCurrentAnimatorStateInfo(i);
                 
-                element = new StateInfo
+                stateInfoElement = new StateInfo
                 {
                     FullPathHash = info.fullPathHash,
                     ShortNameHash = info.shortNameHash,
@@ -29,11 +29,16 @@ namespace Parabole.AnimatorSystems
                     TagHash = info.tagHash
                 };
 
-                buffer.Add(element);
+                stateInfoBuffer.Add(stateInfoElement);
             }
+
+            dstManager.AddBuffer<IntParameter>(entity);
+            dstManager.AddBuffer<FloatParameter>(entity);
+            dstManager.AddBuffer<BoolParameter>(entity);
+            dstManager.AddBuffer<TriggerParameter>(entity);
             
              #if UNITY_EDITOR
-            dstManager.SetName(entity, "AnimatorSystems.StateInfo" );
+            dstManager.SetName(entity, "AnimatorSystems.Animator" );
             #endif
         }
     }
