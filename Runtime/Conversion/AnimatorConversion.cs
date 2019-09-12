@@ -5,7 +5,7 @@ namespace Parabole.AnimatorSystems
 {
     public class AnimatorConversion : MonoBehaviour, IConvertGameObjectToEntity
     {
-        [SerializeField] private Animator _animator;
+        [SerializeField] private Animator _animator = null;
         
         public virtual void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
