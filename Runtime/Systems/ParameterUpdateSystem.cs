@@ -18,7 +18,14 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    typeof(Animator)
+                    ComponentType.ReadOnly<Animator>(), 
+                },
+                Any = new ComponentType[]
+                {
+                    ComponentType.ReadOnly<FloatParameter>(),
+                    ComponentType.ReadOnly<IntParameter>(),
+                    ComponentType.ReadOnly<BoolParameter>(),
+                    ComponentType.ReadOnly<TriggerParameter>()
                 }
             };
             
@@ -53,6 +60,11 @@ namespace Parabole.AnimatorSystems
                 {
                     animator.SetTrigger(e.Parameter);
                 }
+                
+                floatBuffer.Clear();
+                intBuffer.Clear();
+                boolBuffer.Clear();
+                triggerBuffer.Clear();
             });
         }
     }

@@ -32,10 +32,10 @@ namespace Parabole.AnimatorSystems
                 stateInfoBuffer.Add(stateInfoElement);
             }
 
-            dstManager.AddBuffer<IntParameter>(entity);
-            dstManager.AddBuffer<FloatParameter>(entity);
-            dstManager.AddBuffer<BoolParameter>(entity);
-            dstManager.AddBuffer<TriggerParameter>(entity);
+            var iBuffer = dstManager.AddBuffer<IntParameter>(entity);
+            var fBuffer = dstManager.AddBuffer<FloatParameter>(entity);
+            var bBuffer = dstManager.AddBuffer<BoolParameter>(entity);
+            var tBuffer = dstManager.AddBuffer<TriggerParameter>(entity);
         }
     }
 }
