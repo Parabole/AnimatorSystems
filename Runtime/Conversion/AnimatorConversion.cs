@@ -7,7 +7,7 @@ namespace Parabole.AnimatorSystems
     {
         [SerializeField] private Animator _animator;
         
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public virtual void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             dstManager.AddComponentObject(entity, _animator);
 
