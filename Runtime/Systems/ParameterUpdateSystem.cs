@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems
 {
     [UpdateInGroup(typeof(SimulationSystemGroup))]
-    public abstract class ParameterUpdateSystem: ComponentSystem 
+    public class ParameterUpdateSystem: ComponentSystem 
     {
         private EntityQueryDesc m_QueryDesc;
         private EntityQuery m_Query;
