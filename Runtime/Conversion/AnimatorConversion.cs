@@ -36,10 +36,6 @@ namespace Parabole.AnimatorSystems
             dstManager.AddBuffer<FloatParameter>(entity);
             dstManager.AddBuffer<BoolParameter>(entity);
             dstManager.AddBuffer<TriggerParameter>(entity);
-            
-             #if UNITY_EDITOR
-            dstManager.SetName(entity, "AnimatorSystems.Animator" );
-            #endif
         }
     }
 }
