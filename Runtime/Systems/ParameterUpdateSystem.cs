@@ -60,11 +60,6 @@ namespace Parabole.AnimatorSystems
                 {
                     animator.SetTrigger(e.Parameter);
                 }
-                
-                floatBuffer.Clear();
-                intBuffer.Clear();
-                boolBuffer.Clear();
-                triggerBuffer.Clear();
             });
         }
     }
