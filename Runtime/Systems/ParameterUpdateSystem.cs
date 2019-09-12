@@ -22,10 +22,10 @@ namespace Parabole.AnimatorSystems
                 },
                 Any = new ComponentType[]
                 {
-                    typeof(FloatParameter),
-                    typeof(IntParameter),
-                    typeof(BoolParameter),
-                    typeof(TriggerParameter)
+                    typeof(DynamicBuffer<FloatParameter>),
+                    typeof(DynamicBuffer<IntParameter>),
+                    typeof(DynamicBuffer<BoolParameter>),
+                    typeof(DynamicBuffer<TriggerParameter>)
                 }
             };
             

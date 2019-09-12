@@ -37,9 +37,9 @@ namespace Parabole.AnimatorSystems
             buffer.Add(element);
         }
         
-        public static void AddTriggerToBuffer (int hash, int value, DynamicBuffer<IntParameter> buffer)
+        public static void AddTriggerToBuffer (int hash, bool value, DynamicBuffer<TriggerParameter> buffer)
         {
-            var element = new IntParameter()
+            var element = new TriggerParameter()
             {
                 Parameter = hash,
                 Value = value
