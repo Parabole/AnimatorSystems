@@ -18,8 +18,14 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    typeof(Animator),
-                    typeof(AnimatorTag)
+                    typeof(Animator)
+                },
+                Any = new ComponentType[]
+                {
+                    typeof(DynamicBuffer<FloatParameter>),
+                    typeof(DynamicBuffer<IntParameter>),
+                    typeof(DynamicBuffer<BoolParameter>),
+                    typeof(DynamicBuffer<TriggerParameter>)
                 }
             };
             
