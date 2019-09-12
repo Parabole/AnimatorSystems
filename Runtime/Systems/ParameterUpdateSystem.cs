@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public abstract class ParameterUpdateSystem<TB, TP> : ComponentSystem 
         where TB : struct, IBufferElementData 
         where TP : struct
@@ -40,8 +39,6 @@ namespace Parabole.AnimatorSystems
     }
     
     // BOOL
-    
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class BoolUpdateSystem : ParameterUpdateSystem<BoolParameter, bool>
     {
         protected override void UpdateParameter(Animator animator, BoolParameter element)
@@ -51,8 +48,6 @@ namespace Parabole.AnimatorSystems
     }
     
     // FLOAT
-
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class FloatUpdateSystem : ParameterUpdateSystem<FloatParameter, float>
     {
         protected override void UpdateParameter(Animator animator, FloatParameter element)
@@ -62,8 +57,6 @@ namespace Parabole.AnimatorSystems
     }
     
     // INT
-    
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class IntUpdateSystem : ParameterUpdateSystem<IntParameter, int>
     {
         protected override void UpdateParameter(Animator animator, IntParameter element)
@@ -73,8 +66,6 @@ namespace Parabole.AnimatorSystems
     }
     
     // TRIGGER
-    
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class TriggerUpdateSystem : ParameterUpdateSystem<TriggerParameter, float>
     {
         protected override void UpdateParameter(Animator animator, TriggerParameter element)
@@ -84,7 +75,6 @@ namespace Parabole.AnimatorSystems
                 animator.SetTrigger(element.Parameter);
                 element.Value = false;
             }
-       
         }
     }
 }
