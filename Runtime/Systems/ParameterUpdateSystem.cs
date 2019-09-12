@@ -19,13 +19,6 @@ namespace Parabole.AnimatorSystems
                 All = new ComponentType[] 
                 {
                     typeof(Animator)
-                },
-                Any = new ComponentType[]
-                {
-                    typeof(FloatParameter),
-                    typeof(IntParameter),
-                    typeof(BoolParameter),
-                    typeof(TriggerParameter)
                 }
             };
             
