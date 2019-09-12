@@ -5,9 +5,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    public abstract class ParameterUpdateSystem<TB, TP> : ComponentSystem 
-        where TB : struct, IBufferElementData 
-        where TP : struct
+    public abstract class ParameterUpdateSystem: ComponentSystem 
     {
         private EntityQueryDesc m_QueryDesc;
         private EntityQuery m_Query;
@@ -17,7 +15,13 @@ namespace Parabole.AnimatorSystems
             base.OnStartRunning();
             m_QueryDesc = new EntityQueryDesc
             {
-                All = new ComponentType[] {typeof(Animator), typeof(TB)},
+                All = new ComponentType[] 
+                {
+                    typeof(Animator),typeof(DynamicBuffer<FloatParameter>),
+                    typeof(DynamicBuffer<IntParameter>),
+                    typeof(DynamicBuffer<BoolParameter>),
+                    typeof(DynamicBuffer<TriggerParameter>)
+                }
             };
             
             m_Query = GetEntityQuery(m_QueryDesc);
@@ -25,56 +29,38 @@ namespace Parabole.AnimatorSystems
 
         protected override void OnUpdate()
         {
-            Entities.With(m_Query).ForEach((Entity entity, Animator animator, DynamicBuffer<TB> buffer) =>
+            Entities.With(m_Query).ForEach((Entity entity, Animator animator) =>
             {
-                foreach (var b in buffer)
+                var floatBuffer = EntityManager.GetBuffer<FloatParameter>(entity);
+                var intBuffer = EntityManager.GetBuffer<IntParameter>(entity);
+                var boolBuffer = EntityManager.GetBuffer<BoolParameter>(entity);
+                var triggerBuffer = EntityManager.GetBuffer<TriggerParameter>(entity);
+                
+                foreach (var e in floatBuffer)
                 {
-                    UpdateParameter(animator, b);
+                    animator.SetFloat(e.Parameter, e.Value);
                 }
-                buffer.Clear();
+                
+                foreach (var e in intBuffer)
+                {
+                    animator.SetInteger(e.Parameter, e.Value);
+                }
+                
+                foreach (var e in boolBuffer)
+                {
+                    animator.SetBool(e.Parameter, e.Value);
+                }
+
+                foreach (var e in triggerBuffer)
+                {
+                    animator.SetTrigger(e.Parameter);
+                }
+                
+                floatBuffer.Clear();
+                intBuffer.Clear();
+                boolBuffer.Clear();
+                triggerBuffer.Clear();
             });
-        }
-        
-       protected abstract void UpdateParameter(Animator animator, TB element);
-    }
-    
-    // BOOL
-    public class BoolUpdateSystem : ParameterUpdateSystem<BoolParameter, bool>
-    {
-        protected override void UpdateParameter(Animator animator, BoolParameter element)
-        {
-            animator.SetBool(element.Parameter, element.Value);
-        }
-    }
-    
-    // FLOAT
-    public class FloatUpdateSystem : ParameterUpdateSystem<FloatParameter, float>
-    {
-        protected override void UpdateParameter(Animator animator, FloatParameter element)
-        {
-            animator.SetFloat(element.Parameter, element.Value);
-        }
-    }
-    
-    // INT
-    public class IntUpdateSystem : ParameterUpdateSystem<IntParameter, int>
-    {
-        protected override void UpdateParameter(Animator animator, IntParameter element)
-        {
-            animator.SetInteger(element.Parameter, element.Value);
-        }
-    }
-    
-    // TRIGGER
-    public class TriggerUpdateSystem : ParameterUpdateSystem<TriggerParameter, float>
-    {
-        protected override void UpdateParameter(Animator animator, TriggerParameter element)
-        {
-            if (element.Value)
-            {
-                animator.SetTrigger(element.Parameter);
-                element.Value = false;
-            }
         }
     }
 }
