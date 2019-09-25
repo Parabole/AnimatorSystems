@@ -1,0 +1,16 @@
+using Unity.Entities;
+
+namespace Parabole.AnimatorSystems
+{
+    [InternalBufferCapacity(16)]
+    public struct StateInfo : IBufferElementData
+    {
+        public int FullPathHash;
+        public int ShortNameHash;
+        public bool IsLooping;
+        public float Speed;
+        public float SpeedMultiplier;
+        public float Length;
+        public int TagHash;
+    }
+}
