@@ -6,7 +6,6 @@ using UnityEngine;
 [RequiresEntityConversion]
 public class AnimatorAuthoring : MonoBehaviour
 {
-   
     public Animator Animator = null;
     public bool ConvertTransform = false;
 }
