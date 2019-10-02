@@ -24,6 +24,7 @@ namespace Parabole.AnimatorSystems
                 
                     stateInfoElement = new StateInfo
                     {
+                        NormalizedTime = 0,
                         FullPathHash = info.fullPathHash,
                         ShortNameHash = info.shortNameHash,
                         IsLooping = info.loop,

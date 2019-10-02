@@ -31,8 +31,10 @@ namespace Parabole.AnimatorSystems
                 for (int i = 0; i < buffer.Length; i++)
                 {
                     var info = animator.GetCurrentAnimatorStateInfo(i);
+                    
                     buffer[i] = new StateInfo
                     {
+                        NormalizedTime = info.normalizedTime,
                         FullPathHash = info.fullPathHash,
                         ShortNameHash = info.shortNameHash,
                         IsLooping = info.loop,

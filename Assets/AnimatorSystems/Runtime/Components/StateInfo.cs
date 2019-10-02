@@ -5,6 +5,7 @@ namespace Parabole.AnimatorSystems
     [InternalBufferCapacity(16)]
     public struct StateInfo : IBufferElementData
     {
+        public float NormalizedTime;
         public int FullPathHash;
         public int ShortNameHash;
         public bool IsLooping;
