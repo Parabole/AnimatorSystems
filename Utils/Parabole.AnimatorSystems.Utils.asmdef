@@ -1,14 +1,15 @@
 {
-    "name": "Parabole.AnimatorSystems.Editor",
-    "references": [],
-    "includePlatforms": [
-        "Editor"
+    "name": "Parabole.AnimatorSystems.Utils",
+    "references": [
+        "GUID:6aa50ad4e26b6094f8be7d7b1abfa397",
+        "GUID:734d92eba21c94caba915361bd5ac177"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    /// <summary>
+    /// Receives "orders" to set parameters of the animator
+    /// Currently 16 directives by type are supported
+    /// To add more, modify the internal buffer size of each component
+    /// </summary>
     [UpdateInGroup(typeof(SimulationSystemGroup))]
     public class ParameterUpdateSystem: ComponentSystem 
     {
@@ -34,7 +39,7 @@ namespace Parabole.AnimatorSystems
 
         protected override void OnUpdate()
         {
-            Entities.With(m_Query).ForEach((Entity entity, Animator animator) =>
+            Entities.With(m_Query).ForEach((Entity entity, UnityEngine.Animator animator) =>
             {
                 var floatBuffer = EntityManager.GetBuffer<FloatParameter>(entity);
                 var intBuffer = EntityManager.GetBuffer<IntParameter>(entity);
