@@ -1,9 +1,9 @@
 {
     "name": "com.parabole.animator-systems",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "displayName": "Animator Systems",
     "unity": "2019.3",
-    "description": "DOTS utilities to handle Animators in Unity.",
+    "description": "Hybrid integration of Animator in DOTS.",
     "dependencies": 
     {
       "com.unity.entities": "0.1.1",

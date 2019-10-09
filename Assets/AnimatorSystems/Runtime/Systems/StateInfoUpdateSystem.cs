@@ -18,7 +18,7 @@ namespace Parabole.AnimatorSystems
             base.OnStartRunning();
             m_QueryDesc = new EntityQueryDesc
             {
-                All = new ComponentType[] {typeof(Animator), typeof(StateInfo)},
+                All = new ComponentType[] {typeof(UnityEngine.Animator), typeof(StateInfo)},
             };
             
             m_Query = GetEntityQuery(m_QueryDesc);
@@ -26,9 +26,9 @@ namespace Parabole.AnimatorSystems
         
         protected override void OnUpdate()
         {
-            Entities.With(m_Query).ForEach((Entity entity, Animator animator, DynamicBuffer<StateInfo> buffer) =>
+            Entities.With(m_Query).ForEach((Entity entity, UnityEngine.Animator animator, DynamicBuffer<StateInfo> buffer) =>
             {
-                for (int i = 0; i < buffer.Length; i++)
+                for (var i = 0; i < buffer.Length; i++)
                 {
                     var info = animator.GetCurrentAnimatorStateInfo(i);
                     

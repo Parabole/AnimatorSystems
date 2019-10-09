@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    /// <summary>
+    /// Helpers to add buffer elements
+    /// </summary>
     public static class BufferUtils 
     {
         public static void AddFloatToBuffer(int hash, float value, DynamicBuffer<FloatParameter> buffer)

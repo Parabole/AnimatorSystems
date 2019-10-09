@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-
+/// <summary>
+/// Builds the Animator Entity.
+/// - Would probably better be split into more granular
+/// - Maybe having an archetype and not Adding/Removing components during conversion would be better / more efficient
+/// </summary>
     public class AnimatorConversion : GameObjectConversionSystem
     {
         protected override void OnUpdate()
@@ -14,35 +18,45 @@ namespace Parabole.AnimatorSystems
                 var entity = GetPrimaryEntity(animator);
                 
                 DstEntityManager.AddComponentObject(entity, animator.Animator);
-                
-                var stateInfoBuffer = DstEntityManager.AddBuffer<StateInfo>(entity);
-                var stateInfoElement = new StateInfo();
-            
-                for (int i = 0; i < animator.Animator.layerCount; i++)
+
+                if (animator.HasStateInfo)
                 {
-                    var info = animator.Animator.GetCurrentAnimatorStateInfo(i);
-                
-                    stateInfoElement = new StateInfo
+                    var stateInfoBuffer = DstEntityManager.AddBuffer<StateInfo>(entity);
+                    var stateInfoElement = new StateInfo();
+            
+                    for (int i = 0; i < animator.Animator.layerCount; i++)
                     {
-                        NormalizedTime = 0,
-                        FullPathHash = info.fullPathHash,
-                        ShortNameHash = info.shortNameHash,
-                        IsLooping = info.loop,
-                        Speed = info.speed,
-                        SpeedMultiplier = info.speedMultiplier,
-                        Length = info.length,
-                        TagHash = info.tagHash
-                    };
+                        var info = animator.Animator.GetCurrentAnimatorStateInfo(i);
+                
+                        stateInfoElement = new StateInfo
+                        {
+                            NormalizedTime = 0,
+                            FullPathHash = info.fullPathHash,
+                            ShortNameHash = info.shortNameHash,
+                            IsLooping = info.loop,
+                            Speed = info.speed,
+                            SpeedMultiplier = info.speedMultiplier,
+                            Length = info.length,
+                            TagHash = info.tagHash
+                        };
 
-                    stateInfoBuffer.Add(stateInfoElement);
+                        stateInfoBuffer.Add(stateInfoElement);
+                    }
                 }
+               
+                if (animator.HasIntPameters) 
+                    DstEntityManager.AddBuffer<IntParameter>(entity);
+                
+                if (animator.HasFloatParameter) 
+                    DstEntityManager.AddBuffer<FloatParameter>(entity);
+                
+                if (animator.HasBoolParameters) 
+                    DstEntityManager.AddBuffer<BoolParameter>(entity);
+                
+                if (animator.HasTriggerParameters) 
+                    DstEntityManager.AddBuffer<TriggerParameter>(entity);
 
-                DstEntityManager.AddBuffer<IntParameter>(entity);
-                DstEntityManager.AddBuffer<FloatParameter>(entity);
-                DstEntityManager.AddBuffer<BoolParameter>(entity);
-                DstEntityManager.AddBuffer<TriggerParameter>(entity);
-
-                if (!animator.ConvertTransform)
+                if (!animator.HasTransformComponents)
                 {
                     DstEntityManager.RemoveComponent<Rotation>(entity);
                     DstEntityManager.RemoveComponent<Translation>(entity);
