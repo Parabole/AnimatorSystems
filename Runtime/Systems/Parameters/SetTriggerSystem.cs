@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(SetParameterGroup))]
-    public class SetTriggerSystem : BufferUpdateSystemBase<SetTrigger>
+    public class SetTriggerSystem : SetParameterSystem<SetTrigger>
     {
-        protected override void UpdateParameter(SetTrigger elementData, Animator animator)
+        protected override void SetParameter(SetTrigger elementData, Animator animator)
         {
             animator.SetBool(elementData.NameHash, elementData.Value);
         }

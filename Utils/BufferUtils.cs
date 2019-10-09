@@ -10,7 +10,7 @@ namespace Parabole.AnimatorSystems.Runtime
     /// </summary>
     public static class BufferUtils 
     {
-        public static void AddFloatToBuffer(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
+        public static void AddFloat(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
         {
             var element = new SetFloat()
             {
@@ -20,7 +20,7 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddBoolToBuffer(int nameHash, bool value, DynamicBuffer<SetBool> buffer)
+        public static void AddBool(int nameHash, bool value, DynamicBuffer<SetBool> buffer)
         {
             var element = new SetBool()
             {
@@ -30,7 +30,7 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddIntToBuffer (int nameHash, int value, DynamicBuffer<SetInteger> buffer)
+        public static void AddInteger (int nameHash, int value, DynamicBuffer<SetInteger> buffer)
         {
             var element = new SetInteger()
             {
@@ -40,7 +40,7 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddTriggerToBuffer (int nameHash, bool value, DynamicBuffer<SetTrigger> buffer)
+        public static void AddTrigger (int nameHash, bool value, DynamicBuffer<SetTrigger> buffer)
         {
             var element = new SetTrigger()
             {
@@ -49,6 +49,7 @@ namespace Parabole.AnimatorSystems.Runtime
             };
             buffer.Add(element);
         }
+        
     }
 
 }
