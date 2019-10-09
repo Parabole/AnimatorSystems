@@ -1,11 +1,10 @@
 using Unity.Entities;
 
-namespace Parabole.AnimatorSystems
+namespace Parabole.AnimatorSystems.Runtime
 {
     [InternalBufferCapacity(16)]
     public struct BoolParameter : IBufferElementData
     {
-        public int Parameter;
         public bool Value;
     }
 }

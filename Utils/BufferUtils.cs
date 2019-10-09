@@ -3,48 +3,48 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems
+namespace Parabole.AnimatorSystems.Runtime
 {
     /// <summary>
     /// Helpers to add buffer elements
     /// </summary>
     public static class BufferUtils 
     {
-        public static void AddFloatToBuffer(int hash, float value, DynamicBuffer<FloatParameter> buffer)
+        public static void AddFloatToBuffer(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
         {
-            var element = new FloatParameter()
+            var element = new SetFloat()
             {
-                Parameter = hash,
+                NameHash = nameHash,
                 Value = value
             };
             buffer.Add(element);
         }
         
-        public static void AddBoolToBuffer(int hash, bool value, DynamicBuffer<BoolParameter> buffer)
+        public static void AddBoolToBuffer(int nameHash, bool value, DynamicBuffer<SetBool> buffer)
         {
-            var element = new BoolParameter()
+            var element = new SetBool()
             {
-                Parameter = hash,
+                NameHash = nameHash,
                 Value = value
             };
             buffer.Add(element);
         }
         
-        public static void AddIntToBuffer (int hash, int value, DynamicBuffer<IntParameter> buffer)
+        public static void AddIntToBuffer (int nameHash, int value, DynamicBuffer<SetInteger> buffer)
         {
-            var element = new IntParameter()
+            var element = new SetInteger()
             {
-                Parameter = hash,
+                NameHash = nameHash,
                 Value = value
             };
             buffer.Add(element);
         }
         
-        public static void AddTriggerToBuffer (int hash, bool value, DynamicBuffer<TriggerParameter> buffer)
+        public static void AddTriggerToBuffer (int nameHash, bool value, DynamicBuffer<SetTrigger> buffer)
         {
-            var element = new TriggerParameter()
+            var element = new SetTrigger()
             {
-                Parameter = hash,
+                NameHash = nameHash,
                 Value = value
             };
             buffer.Add(element);
