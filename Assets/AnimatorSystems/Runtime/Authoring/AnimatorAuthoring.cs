@@ -12,22 +12,20 @@ public class AnimatorAuthoring : MonoBehaviour
 {
     [Tooltip("If set to ConvertAndDestroy, do not link an animator that is on the object to be destroyed.")]
     public Animator Animator = null;
+    
+    [Header("Add to Entity")]
+    [Tooltip("Enable if you expect other systems to update layers on the Animator.")]
+    public bool AddLayers = true;
 
-    [Tooltip("Enable if you expect other systems to read the AnimatorStateInfo.")]
-    public bool HasStateInfo = true;
+    [Tooltip("Enable if you expect other systems to read StateInfo from the Animator.")]
+    public bool AddStateInfo = true;
     
-    [Tooltip("Enable if you expect other systems to update some int parameters on the Animator.")]
-    public bool HasIntPameters = true;
+    [Tooltip("Enable if you expect other systems to get parameters values from the Animator.")]
+    public bool AddGetParameters = true;
     
-    [Tooltip("Enable if you expect other systems to update some float parameters on the Animator.")]
-    public bool HasFloatParameter = true;
-    
-    [Tooltip("Enable if you expect other systems to update some bool parameters on the Animator.")]
-    public bool HasBoolParameters = true;
-    
-    [Tooltip("Enable if you expect other systems to update some bool parameters on the Animator.")]
-    public bool HasTriggerParameters = true;
+    [Tooltip("Enable if you expect other systems to set parameters on the Animator.")]
+    public bool AddSetParameters = true;
     
     [Tooltip("Enable if you want this entity to have rotation, local to world and translation components.")]
-    public bool HasTransformComponents = false;
+    public bool AddTransformComponents = false;
 }

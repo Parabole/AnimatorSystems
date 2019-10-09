@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems
+namespace Parabole.AnimatorSystems.Runtime
 {
     /// <summary>
     /// Mirror the AnimatorStateInfo in DOTS
