@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(SetParameterGroup))]
-    public class SetIntegerSystem : BufferUpdateSystemBase<SetInteger>
+    public class SetIntegerSystem : SetParameterSystem<SetInteger>
     {
-        protected override void UpdateParameter(SetInteger elementData, Animator animator)
+        protected override void SetParameter(SetInteger elementData, Animator animator)
         {
             animator.SetInteger(elementData.NameHash, elementData.Value);
         }

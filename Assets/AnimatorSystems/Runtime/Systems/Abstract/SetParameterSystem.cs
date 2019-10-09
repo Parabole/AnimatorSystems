@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems.Runtime
 {
-    public abstract class BufferUpdateSystemBase<TBufferElementData> : ComponentSystem
+    public abstract class SetParameterSystem<TBufferElementData> : ComponentSystem
         where TBufferElementData : struct, IBufferElementData
     {
         private EntityQueryDesc queryDesc;
@@ -29,11 +29,11 @@ namespace Parabole.AnimatorSystems.Runtime
         {
             Entities.With(query).ForEach((DynamicBuffer<TBufferElementData> buffer, Animator animator) =>
             {
-                foreach (var e in buffer) UpdateParameter(e, animator);
+                foreach (var e in buffer) SetParameter(e, animator);
                 buffer.Clear();
             });
         }
 
-        protected abstract void UpdateParameter(TBufferElementData elementData, Animator animator);
+        protected abstract void SetParameter(TBufferElementData elementData, Animator animator);
     }
 }

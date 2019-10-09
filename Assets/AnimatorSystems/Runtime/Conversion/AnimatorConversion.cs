@@ -20,7 +20,7 @@ namespace Parabole.AnimatorSystems.Runtime
                     AddStateInfo(animator.Animator, entity);
                 
                 if (animator.AddSetParameters) 
-                    AddParameterBuffers(animator.Animator, entity);
+                    InitializeParameters(animator.Animator, entity);
                 
                 if (!animator.AddTransformComponents) 
                     RemoveTransformComponents(entity);
@@ -70,47 +70,65 @@ namespace Parabole.AnimatorSystems.Runtime
             DstEntityManager.RemoveComponent<LocalToWorld>(entity);
         }
 
-        /// <summary>
-        /// Loop through all parameters found on the animator and create parameters buffer if necessary
-        /// </summary>
-        private void AddParameterBuffers(Animator animator, Entity entity)
+        public void InitializeParameters(Animator animator, Entity entity)
         {
-            var hasBool = false;
-            var hasTrigger = false;
-            var hasInt = false;
-            var hasFloat = false;
-                    
-            foreach (var p in animator.parameters)
+            // Create buffer to hold the values
+            var pHashBuffer = DstEntityManager.AddBuffer<ParameterHash>(entity);
+            var boolBuffer = DstEntityManager.AddBuffer<BoolParameter>(entity);
+            var triggerBuffer = DstEntityManager.AddBuffer<TriggerParameter>(entity);
+            var floatBuffer = DstEntityManager.AddBuffer<FloatParameter>(entity);
+            var intBuffer = DstEntityManager.AddBuffer<IntParameter>(entity);
+            
+            // Populate the buffers with values
+            for (int i = 0; i < animator.parameterCount; i++)
             {
+                var p = animator.parameters[i];
+                var index = 0;
+                
                 switch (p.type)
                 {
                     case AnimatorControllerParameterType.Bool:
-                        if (!hasBool) hasBool = AddBufferToEntity<SetBool>(entity);
+                        index = boolBuffer.Add(new BoolParameter
+                        {
+                            NameHash = p.nameHash,
+                            Value = p.defaultBool
+                        });
                         break;
                             
                     case AnimatorControllerParameterType.Trigger:
-                        if (!hasTrigger) hasTrigger = AddBufferToEntity<SetTrigger>(entity);
+                        index = triggerBuffer.Add(new TriggerParameter
+                        {
+                            NameHash = p.nameHash,
+                            Value = p.defaultBool
+                        });
                         break;
                             
                     case AnimatorControllerParameterType.Int:
-                        if (!hasInt) hasInt = AddBufferToEntity<SetInteger>(entity);
+                        index = intBuffer.Add(new IntParameter
+                        {
+                            NameHash = p.nameHash,
+                            Value = p.defaultInt
+                        });
                         break;
                             
                     case AnimatorControllerParameterType.Float:
-                        if (!hasFloat) hasFloat = AddBufferToEntity<SetFloat>(entity);
+                        index = floatBuffer.Add(new FloatParameter
+                        {
+                            NameHash = p.nameHash,
+                            Value = p.defaultFloat
+                        });
                         break;
                 }
+                
+                // Set the ParameterHash to later retrieve the new index
+                // Since we follow the Animator parameter array order...
+                // ...the dBuffer index corresponds to its origin index
+                pHashBuffer.Add(new ParameterHash
+                {
+                    Hash = p.nameHash,
+                    IndexInBuffer = index
+                });
             }
         }
-        
-        /// <summary>
-        /// Add the buffer 
-        /// </summary>
-        private bool AddBufferToEntity<T>(Entity entity) where T : struct, IBufferElementData
-        {
-            DstEntityManager.AddBuffer<T>(entity);
-            return true;
-        }
-      
     }
 }
