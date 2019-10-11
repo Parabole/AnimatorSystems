@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Scripting;
 namespace Parabole.AnimatorSystems.Runtime
 {
-    
     public class SetParameterGroup : ComponentSystemGroup
     {
         [Preserve] public SetParameterGroup() {}
