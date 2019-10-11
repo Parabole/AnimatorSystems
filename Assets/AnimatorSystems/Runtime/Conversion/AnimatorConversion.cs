@@ -20,10 +20,10 @@ namespace Parabole.AnimatorSystems.Runtime
                     AddStateInfo(animator.Animator, entity);
                 
                 if (animator.AddSetParameters) 
-                    InitializeParameters(animator.Animator, entity);
+                    AddParameterBuffers(animator.Animator, entity);
                 
                 if (!animator.AddTransformComponents) 
-                    RemoveTransformComponents(entity);
+                    RemoveTransformComponents(entity); 
                
                 #if UNITY_EDITOR
                 DstEntityManager.SetName(entity, "Animator");
@@ -70,65 +70,46 @@ namespace Parabole.AnimatorSystems.Runtime
             DstEntityManager.RemoveComponent<LocalToWorld>(entity);
         }
 
-        public void InitializeParameters(Animator animator, Entity entity)
+        /// <summary>
+        /// Loop through all parameters found on the animator and create parameters buffer if necessary
+        /// </summary>
+        private void AddParameterBuffers(Animator animator, Entity entity)
         {
-            // Create buffer to hold the values
-            var pHashBuffer = DstEntityManager.AddBuffer<ParameterHash>(entity);
-            var boolBuffer = DstEntityManager.AddBuffer<BoolParameter>(entity);
-            var triggerBuffer = DstEntityManager.AddBuffer<TriggerParameter>(entity);
-            var floatBuffer = DstEntityManager.AddBuffer<FloatParameter>(entity);
-            var intBuffer = DstEntityManager.AddBuffer<IntParameter>(entity);
-            
-            // Populate the buffers with values
-            for (int i = 0; i < animator.parameterCount; i++)
+            var hasBool = false;
+            var hasTrigger = false;
+            var hasInt = false;
+            var hasFloat = false;
+                    
+            foreach (var p in animator.parameters)
             {
-                var p = animator.parameters[i];
-                var index = 0;
-                
                 switch (p.type)
                 {
                     case AnimatorControllerParameterType.Bool:
-                        index = boolBuffer.Add(new BoolParameter
-                        {
-                            NameHash = p.nameHash,
-                            Value = p.defaultBool
-                        });
+                        if (!hasBool) hasBool = AddBufferToEntity<SetBool>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Trigger:
-                        index = triggerBuffer.Add(new TriggerParameter
-                        {
-                            NameHash = p.nameHash,
-                            Value = p.defaultBool
-                        });
+                        if (!hasTrigger) hasTrigger = AddBufferToEntity<SetTrigger>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Int:
-                        index = intBuffer.Add(new IntParameter
-                        {
-                            NameHash = p.nameHash,
-                            Value = p.defaultInt
-                        });
+                        if (!hasInt) hasInt = AddBufferToEntity<SetInteger>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Float:
-                        index = floatBuffer.Add(new FloatParameter
-                        {
-                            NameHash = p.nameHash,
-                            Value = p.defaultFloat
-                        });
+                        if (!hasFloat) hasFloat = AddBufferToEntity<SetFloat>(entity);
                         break;
                 }
-                
-                // Set the ParameterHash to later retrieve the new index
-                // Since we follow the Animator parameter array order...
-                // ...the dBuffer index corresponds to its origin index
-                pHashBuffer.Add(new ParameterHash
-                {
-                    Hash = p.nameHash,
-                    IndexInBuffer = index
-                });
             }
+        }
+        
+        /// <summary>
+        /// Add the buffer 
+        /// </summary>
+        private bool AddBufferToEntity<T>(Entity entity) where T : struct, IBufferElementData
+        {
+            DstEntityManager.AddBuffer<T>(entity);
+            return true;
         }
     }
 }
