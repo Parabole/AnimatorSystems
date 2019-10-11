@@ -6,7 +6,7 @@
 
 ## Installation
 * For development, simply clone the repo and use it like any other Unity project
-* For deployment, we just followed [mob-sakai process ](https://www.patreon.com/posts/25070968) and it worked like a charm
+* For deployment, you can add this line to your package manifest.json: "com.parabole.animator-systems": "https://github.com/Parabole/AnimatorSystems.git#X.X.X" (change X.X.X with the version tag you wish to use, ex: 0.3.0)
 
 ### Updating the package
 First update SemVer version in package.json (again following [mob-sakai process ](https://www.patreon.com/posts/25070968)), then:
