@@ -6,7 +6,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class TestSystem : JobComponentSystem
+public class TestParameterSystem : JobComponentSystem
 {
     private int boolHash;
     private int triggerHash;
@@ -33,23 +33,23 @@ public class TestSystem : JobComponentSystem
         }.Schedule(this, inputDeps);
     }
 
-    private struct TestJob : IJobForEach_BBBB<SetBool, SetTrigger, SetFloat, SetInteger>
+    private struct TestJob : IJobForEach_BBBB<BoolParameter, TriggerParameter, FloatParameter, IntParameter>
     {
         public int BoolHash;
         public int TriggerHash;
         public int FloatHash;
         public int IntHash;
         
-        public void Execute(DynamicBuffer<SetBool> setBool, 
-            DynamicBuffer<SetTrigger> setTrigger, 
-            DynamicBuffer<SetFloat> setFloat,
-            DynamicBuffer<SetInteger> setInteger)
+        public void Execute(DynamicBuffer<BoolParameter> setBool, 
+            DynamicBuffer<TriggerParameter> setTrigger, 
+            DynamicBuffer<FloatParameter> setFloat,
+            DynamicBuffer<IntParameter> setInteger)
         {
             
             BufferUtils.AddBool(BoolHash, true, setBool);
             BufferUtils.AddFloat(FloatHash, 99, setFloat);
             BufferUtils.AddInteger(IntHash, 77, setInteger);
-            BufferUtils.AddTrigger(TriggerHash, true, setTrigger);
+            BufferUtils.AddTrigger(TriggerHash, setTrigger);
         }
     }
 }

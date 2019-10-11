@@ -3,8 +3,9 @@ using Unity.Entities;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [InternalBufferCapacity(16)]
-    public struct StateInfo : IBufferElementData
+    public struct CurrentStateInfo : IBufferElementData
     {
+        public int LayerIndex;
         public float NormalizedTime;
         public int FullPathHash;
         public int ShortNameHash;
