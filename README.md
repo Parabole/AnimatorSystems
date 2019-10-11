@@ -18,7 +18,7 @@ Subtree split for UPM
 
 ## Usage
 Some examples: 
-* To change parameters at runtime, add elements to the type buffer you which to use
+* To change parameters at runtime, add elements to the type buffer you wish to use
 * To change animator override, add AnimatorOverridesContainer to the Animator Game Object, and then add SetAnimatorOverride with the index of the Animator Override you wish to use.
 * To read AnimatorStateInfo, simply query CurrentStateInfo
 
