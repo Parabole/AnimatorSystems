@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using AnimatorSystems.Runtime;
 using Unity.Entities;
 using UnityEngine;
 
@@ -13,19 +15,18 @@ public class AnimatorAuthoring : MonoBehaviour
     [Tooltip("If set to ConvertAndDestroy, do not link an animator that is on the object to be destroyed.")]
     public Animator Animator = null;
     
-    [Header("Add to Entity")]
+    [Tooltip("Set if you wish to change the controller at runtime. AnimatorOverridesContainer needs to be attached to the Animator GameObject.")]
+    public AnimatorOverridesContainer OverridesContainer;
+    
     [Tooltip("Enable if you expect other systems to update layers on the Animator.")]
-    public bool AddLayers = true;
+    public bool UpdateLayers = true;
 
     [Tooltip("Enable if you expect other systems to read StateInfo from the Animator.")]
-    public bool AddStateInfo = true;
+    public bool UpdateStateInfo = true;
     
     [Tooltip("Enable if you expect other systems to get parameters values from the Animator.")]
-    public bool AddGetParameters = true;
-    
-    [Tooltip("Enable if you expect other systems to set parameters on the Animator.")]
-    public bool AddSetParameters = true;
-    
+    public bool UpdateParameters = true;
+
     [Tooltip("Enable if you want this entity to have rotation, local to world and translation components.")]
-    public bool AddTransformComponents = false;
+    public bool UpdateTransform = false;
 }

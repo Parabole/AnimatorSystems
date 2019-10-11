@@ -10,9 +10,9 @@ namespace Parabole.AnimatorSystems.Runtime
     /// </summary>
     public static class BufferUtils 
     {
-        public static void AddFloat(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
+        public static void AddFloat(int nameHash, float value, DynamicBuffer<FloatParameter> buffer)
         {
-            var element = new SetFloat()
+            var element = new FloatParameter()
             {
                 NameHash = nameHash,
                 Value = value
@@ -20,9 +20,9 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddBool(int nameHash, bool value, DynamicBuffer<SetBool> buffer)
+        public static void AddBool(int nameHash, bool value, DynamicBuffer<BoolParameter> buffer)
         {
-            var element = new SetBool()
+            var element = new BoolParameter()
             {
                 NameHash = nameHash,
                 Value = value
@@ -30,9 +30,9 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddInteger (int nameHash, int value, DynamicBuffer<SetInteger> buffer)
+        public static void AddInteger (int nameHash, int value, DynamicBuffer<IntParameter> buffer)
         {
-            var element = new SetInteger()
+            var element = new IntParameter()
             {
                 NameHash = nameHash,
                 Value = value
@@ -40,12 +40,12 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddTrigger (int nameHash, bool value, DynamicBuffer<SetTrigger> buffer)
+        public static void AddTrigger (int nameHash, DynamicBuffer<TriggerParameter> buffer)
         {
-            var element = new SetTrigger()
+            var element = new TriggerParameter()
             {
                 NameHash = nameHash,
-                Value = value
+                Value = true
             };
             buffer.Add(element);
         }

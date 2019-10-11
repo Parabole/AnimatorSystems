@@ -1,3 +1,4 @@
+using AnimatorSystems.Runtime;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -11,20 +12,27 @@ namespace Parabole.AnimatorSystems.Runtime
     {
         protected override void OnUpdate()
         {
-            Entities.ForEach((AnimatorAuthoring animator) =>
+            Entities.ForEach((AnimatorAuthoring authoring) =>
             {
-                var entity = GetPrimaryEntity(animator);
-                DstEntityManager.AddComponentObject(entity, animator.Animator);
+                var entity = GetPrimaryEntity(authoring);
+                DstEntityManager.AddComponentObject(entity, authoring.Animator);
+                DstEntityManager.AddComponent<AnimatorTag>(entity);
 
-                if (animator.AddStateInfo)
-                    AddStateInfo(animator.Animator, entity);
+                if (authoring.UpdateLayers)
+                    AddBufferToEntity<LayerWeight>(entity);
                 
-                if (animator.AddSetParameters) 
-                    AddParameterBuffers(animator.Animator, entity);
+                if (authoring.OverridesContainer != null)
+                    AddOverrides(authoring.OverridesContainer, entity);
                 
-                if (!animator.AddTransformComponents) 
-                    RemoveTransformComponents(entity); 
-               
+                if (authoring.UpdateStateInfo)
+                    AddStateInfo(authoring.Animator, entity);
+                
+                if (authoring.UpdateParameters) 
+                    AddParameterBuffers(authoring.Animator, entity);
+                
+                if (!authoring.UpdateTransform) 
+                    RemoveTransformComponents(entity);
+
                 #if UNITY_EDITOR
                 DstEntityManager.SetName(entity, "Animator");
                 #endif
@@ -32,20 +40,30 @@ namespace Parabole.AnimatorSystems.Runtime
         }
 
         /// <summary>
+        /// Store a list of override controllers to later set them using OverrideAnimatorController component
+        /// </summary>
+        private void AddOverrides(AnimatorOverridesContainer controllersContainer, Entity entity)
+        {
+            if (controllersContainer.Controllers.Length == 0) return;
+            DstEntityManager.AddComponentObject(entity, controllersContainer);
+        }
+
+        /// <summary>
         /// Add StateInfo to the entity for reading in other systems
-        /// May later be split in more granulal components.
+        /// May later be split in more granular components.
         /// </summary>
         private void AddStateInfo(Animator animator, Entity entity)
         {
-            var stateInfoBuffer = DstEntityManager.AddBuffer<StateInfo>(entity);
-            var stateInfoElement = new StateInfo();
+            var stateInfoBuffer = DstEntityManager.AddBuffer<CurrentStateInfo>(entity);
+            var stateInfoElement = new CurrentStateInfo();
 
             for (int i = 0; i < animator.layerCount; i++)
             {
                 var info = animator.GetCurrentAnimatorStateInfo(i);
                 
-                stateInfoElement = new StateInfo
+                stateInfoElement = new CurrentStateInfo
                 {
+                    LayerIndex = i,
                     NormalizedTime = 0,
                     FullPathHash = info.fullPathHash,
                     ShortNameHash = info.shortNameHash,
@@ -85,19 +103,19 @@ namespace Parabole.AnimatorSystems.Runtime
                 switch (p.type)
                 {
                     case AnimatorControllerParameterType.Bool:
-                        if (!hasBool) hasBool = AddBufferToEntity<SetBool>(entity);
+                        if (!hasBool) hasBool = AddBufferToEntity<BoolParameter>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Trigger:
-                        if (!hasTrigger) hasTrigger = AddBufferToEntity<SetTrigger>(entity);
+                        if (!hasTrigger) hasTrigger = AddBufferToEntity<TriggerParameter>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Int:
-                        if (!hasInt) hasInt = AddBufferToEntity<SetInteger>(entity);
+                        if (!hasInt) hasInt = AddBufferToEntity<IntParameter>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Float:
-                        if (!hasFloat) hasFloat = AddBufferToEntity<SetFloat>(entity);
+                        if (!hasFloat) hasFloat = AddBufferToEntity<FloatParameter>(entity);
                         break;
                 }
             }
