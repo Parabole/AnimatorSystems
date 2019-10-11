@@ -16,4 +16,12 @@ Subtree split for UPM
 1. git tag SEMVER_NUMBER_HERE upm
 1. git push origin upm --tags
 
+## Usage
+Some examples: 
+* To change parameters at runtime, add elements to the type buffer you which to use
+* To change animator override, add AnimatorOverridesContainer to the Animator Game Object, and then add SetAnimatorOverride with the index of the Animator Override you wish to use.
+* To read AnimatorStateInfo, simply query CurrentStateInfo
+
+And etc.
+
 Enjoy !
