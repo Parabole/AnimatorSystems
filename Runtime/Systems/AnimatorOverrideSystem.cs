@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems.Runtime
 {
-    [UpdateInGroup(typeof(AnimatorOverrideGroup))]
+    [UpdateInGroup(typeof(AnimatorControllerGroup))]
     public class AnimatorOverrideSystem : ComponentSystem
     {
         private EntityQueryDesc queryDesc;
