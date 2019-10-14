@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems.Runtime
 {
-    [UpdateInGroup(typeof(SetParameterGroup))]
-    public class TriggerParameterUpdater : GenericElementUpdater<TriggerParameter>
+    [UpdateInGroup(typeof(AnimatorParametersGroup))]
+    public class SetTriggerSystem : GenericElementUpdater<TriggerParameter>
     {
         protected override void SetElement(int index, TriggerParameter elementData, Animator animator)
         {

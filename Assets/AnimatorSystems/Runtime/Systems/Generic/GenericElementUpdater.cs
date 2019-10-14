@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems.Runtime
 {
-    [UpdateInGroup(typeof(SetParameterGroup))]
+    [UpdateInGroup(typeof(AnimatorParametersGroup))]
     public abstract class GenericElementUpdater<TBufferElementData> : ComponentSystem
         where TBufferElementData : struct, IBufferElementData
     {
