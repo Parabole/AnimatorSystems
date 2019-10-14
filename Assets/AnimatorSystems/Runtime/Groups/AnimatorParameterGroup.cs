@@ -4,9 +4,9 @@ using UnityEngine.Scripting;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(SimulationSystemGroup))]
-    public class SetParameterGroup : ComponentSystemGroup
+    public class AnimatorParameterGroup : ComponentSystemGroup
     {
-        [Preserve] public SetParameterGroup() {}
+        [Preserve] public AnimatorParameterGroup() {}
 
         protected override void OnCreate()
         {

@@ -7,7 +7,7 @@ namespace Parabole.AnimatorSystems.Runtime
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public class StateInfoUpdater : GenericElementUpdater<CurrentStateInfo>
+    public class StateInfoUpdateSystem : GenericElementUpdater<CurrentStateInfo>
     {
         protected override void SetElement(int index, CurrentStateInfo elementData, Animator animator)
         {

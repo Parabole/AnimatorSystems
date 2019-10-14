@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems.Runtime
 {
-    [UpdateInGroup(typeof(SetParameterGroup))]
-    public class BoolParameterUpdater : GenericElementUpdater<BoolParameter>
+    [UpdateInGroup(typeof(AnimatorParameterGroup))]
+    public class SetBoolSystem : GenericElementUpdater<BoolParameter>
     {
         protected override void SetElement(int index, BoolParameter elementData, Animator animator)
         {

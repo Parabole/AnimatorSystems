@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(AnimatorOverrideGroup))]
-    public class AnimatorResetSystem : ComponentSystem
+    public class SetOverrideSystem : ComponentSystem
     {
         private EntityQueryDesc queryDesc;
         private EntityQuery query;
@@ -19,22 +19,22 @@ namespace Parabole.AnimatorSystems.Runtime
                 {
                     ComponentType.ReadOnly<Animator>(),
                     ComponentType.ReadOnly<AnimatorOverridesContainer>(),
-                    ComponentType.ReadOnly<SetOriginalAnimator>() 
+                    ComponentType.ReadOnly<SetAnimatorOverride>() 
                 }
             };
-		
+			
             query = GetEntityQuery(queryDesc);
             RequireForUpdate(query);
         }
-    
+        
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((Animator animator, AnimatorOverridesContainer overrides) =>
+            Entities.With(query).ForEach((Entity entity, ref SetAnimatorOverride setOverride, Animator animator, AnimatorOverridesContainer overrides) =>
             {
-                animator.runtimeAnimatorController = overrides.OriginalController;
+                var o = overrides.Controllers[setOverride.Index];
+                animator.runtimeAnimatorController = o;
+                EntityManager.RemoveComponent<SetAnimatorOverride>(entity);
             });
         }
     }
 }
-
-

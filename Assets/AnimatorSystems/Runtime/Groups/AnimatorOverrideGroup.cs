@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 namespace Parabole.AnimatorSystems.Runtime
 {
-    [UpdateBefore(typeof(SetParameterGroup))]
+    [UpdateBefore(typeof(AnimatorParameterGroup))]
     public class AnimatorOverrideGroup : ComponentSystemGroup
     {
         [Preserve] public AnimatorOverrideGroup() {}
