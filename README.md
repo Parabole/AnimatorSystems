@@ -1,8 +1,7 @@
 # AnimatorSystems
-* This repository contains DOTS helpers to get/set things on the Unity Animator. 
-* Note that this will become irrelevant once Unity launches its DOTS animation graph.
-* Also note that we do not provide tutorials or any kind of official support for this package.
-* We just use it internally for the making of our next game, and thought it could be a good contribution to making all of our lives easier.
+This repository contains DOTS helpers to get/set things on the Unity Animator. Think of it as a middleman between pure DOTS and the Animator. With this, you can have systems in a pure DOTS sub-scene that sends instructions to an Animator found outside of it (Setting bools and ints requested in burst-compiled jobs).
+
+Note that this will become irrelevant once Unity launches its DOTS animation graph. Also note that we do not provide tutorials or any kind of official support for this package... We just use it internally for the making of our next game, and thought it could be a good contribution to making all of our lives easier :)
 
 ## Installation
 * For development, simply clone the repo and use it like any other Unity project
