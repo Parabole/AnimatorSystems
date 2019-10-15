@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(AnimatorParametersGroup))]
-    public class SetFloatSystem : GenericElementUpdater<FloatParameter>
+    public class SetFloatSystem : SetBufferElementSystem<FloatParameter>
     {
         protected override void SetElement(int index, FloatParameter elementData, Animator animator)
         {
