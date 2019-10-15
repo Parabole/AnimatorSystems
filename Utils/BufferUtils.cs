@@ -10,9 +10,9 @@ namespace Parabole.AnimatorSystems.Runtime
     /// </summary>
     public static class BufferUtils 
     {
-        public static void AddFloat(int nameHash, float value, DynamicBuffer<FloatParameter> buffer)
+        public static void AddFloat(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
         {
-            var element = new FloatParameter()
+            var element = new SetFloat()
             {
                 NameHash = nameHash,
                 Value = value
@@ -20,9 +20,9 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddBool(int nameHash, bool value, DynamicBuffer<BoolParameter> buffer)
+        public static void AddBool(int nameHash, bool value, DynamicBuffer<SetBool> buffer)
         {
-            var element = new BoolParameter()
+            var element = new SetBool()
             {
                 NameHash = nameHash,
                 Value = value
@@ -30,9 +30,9 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddInteger (int nameHash, int value, DynamicBuffer<IntParameter> buffer)
+        public static void AddInteger (int nameHash, int value, DynamicBuffer<SetInt> buffer)
         {
-            var element = new IntParameter()
+            var element = new SetInt()
             {
                 NameHash = nameHash,
                 Value = value
@@ -40,9 +40,9 @@ namespace Parabole.AnimatorSystems.Runtime
             buffer.Add(element);
         }
         
-        public static void AddTrigger (int nameHash, DynamicBuffer<TriggerParameter> buffer)
+        public static void AddTrigger (int nameHash, DynamicBuffer<SetTrigger> buffer)
         {
-            var element = new TriggerParameter()
+            var element = new SetTrigger()
             {
                 NameHash = nameHash,
                 Value = true
