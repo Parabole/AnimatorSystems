@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems.Runtime
 {
     [UpdateInGroup(typeof(AnimatorParametersGroup))]
-    public abstract class GenericElementUpdater<TBufferElementData> : ComponentSystem
+    public abstract class SetBufferElementSystem<TBufferElementData> : ComponentSystem
         where TBufferElementData : struct, IBufferElementData
     {
         private EntityQueryDesc queryDesc;
