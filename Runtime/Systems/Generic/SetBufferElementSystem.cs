@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [UpdateInGroup(typeof(AnimatorParametersGroup))]
     public abstract class SetBufferElementSystem<TBufferElementData> : ComponentSystem

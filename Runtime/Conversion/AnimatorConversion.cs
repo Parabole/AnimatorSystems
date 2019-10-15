@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
 /// <summary>
 /// Builds the Animator Entity.

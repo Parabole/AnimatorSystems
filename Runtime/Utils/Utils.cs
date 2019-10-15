@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     /// <summary>
     /// Helpers to add buffer elements
     /// </summary>
-    public static class BufferUtils 
+    public static class Utils 
     {
         public static void AddFloat(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
         {
@@ -46,6 +46,16 @@ namespace Parabole.AnimatorSystems.Runtime
             {
                 NameHash = nameHash,
                 Value = true
+            };
+            buffer.Add(element);
+        }
+        
+        public static void AddLayerWeight (int index, float weight, DynamicBuffer<SetLayerWeight> buffer)
+        {
+            var element = new SetLayerWeight()
+            {
+                LayerIndex = index,
+                Weight = weight
             };
             buffer.Add(element);
         }

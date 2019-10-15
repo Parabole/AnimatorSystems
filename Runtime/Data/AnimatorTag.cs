@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     public struct AnimatorTag : IComponentData
     {
