@@ -9,10 +9,10 @@ namespace Parabole.AnimatorSystems.Runtime
     {
         private EntityQueryDesc queryDesc;
         private EntityQuery query;
- 
-        protected override void OnStartRunning()
+
+        protected override void OnCreate()
         {
-            base.OnStartRunning();
+            base.OnCreate();
             queryDesc = new EntityQueryDesc
             {
                 All = new ComponentType[] 

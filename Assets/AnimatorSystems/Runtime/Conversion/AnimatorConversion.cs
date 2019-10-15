@@ -19,7 +19,7 @@ namespace Parabole.AnimatorSystems.Runtime
                 DstEntityManager.AddComponent<AnimatorTag>(entity);
 
                 if (authoring.UpdateLayers)
-                    AddBufferToEntity<LayerWeight>(entity);
+                    AddBufferToEntity<SetLayerWeight>(entity);
                 
                 if (authoring.OverridesContainer != null)
                     AddOverrides(authoring.OverridesContainer, entity);
@@ -103,19 +103,19 @@ namespace Parabole.AnimatorSystems.Runtime
                 switch (p.type)
                 {
                     case AnimatorControllerParameterType.Bool:
-                        if (!hasBool) hasBool = AddBufferToEntity<BoolParameter>(entity);
+                        if (!hasBool) hasBool = AddBufferToEntity<SetBool>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Trigger:
-                        if (!hasTrigger) hasTrigger = AddBufferToEntity<TriggerParameter>(entity);
+                        if (!hasTrigger) hasTrigger = AddBufferToEntity<SetTrigger>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Int:
-                        if (!hasInt) hasInt = AddBufferToEntity<IntParameter>(entity);
+                        if (!hasInt) hasInt = AddBufferToEntity<SetInt>(entity);
                         break;
                             
                     case AnimatorControllerParameterType.Float:
-                        if (!hasFloat) hasFloat = AddBufferToEntity<FloatParameter>(entity);
+                        if (!hasFloat) hasFloat = AddBufferToEntity<SetFloat>(entity);
                         break;
                 }
             }
