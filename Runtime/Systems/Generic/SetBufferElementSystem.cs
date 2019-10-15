@@ -17,7 +17,8 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    ComponentType.ReadOnly<Animator>(),
+                    ComponentType.ReadOnly<AnimatorTag>(),
+                    ComponentType.ReadOnly<Animator>(), 
                     ComponentType.ReadWrite<TBufferElementData>()
                 }
             };
@@ -30,8 +31,11 @@ namespace Parabole.AnimatorSystems
         {
             Entities.With(query).ForEach((DynamicBuffer<TBufferElementData> buffer, Animator animator) =>
             {
-                for (var i = 0; i < buffer.Length; i++) SetElement(i, buffer[i], animator);
-                buffer.Clear();
+                if (buffer.Length > 0)
+                {
+                    for (var i = 0; i < buffer.Length; i++) SetElement(i, buffer[i], animator);
+                    buffer.Clear();
+                }
             });
         }
 

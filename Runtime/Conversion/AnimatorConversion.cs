@@ -93,6 +93,8 @@ namespace Parabole.AnimatorSystems
         /// </summary>
         private void AddParameterBuffers(Animator animator, Entity entity)
         {
+            // TODO: Maybe check if a type of parameter exists and ignore those who don't
+            
             var hasBool = false;
             var hasTrigger = false;
             var hasInt = false;
