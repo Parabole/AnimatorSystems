@@ -1,11 +1,11 @@
 ﻿using Unity.Entities;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [InternalBufferCapacity(16)]
     public struct SetLayerWeight : IBufferElementData
     {
         public int LayerIndex;
-        public int Weight;
+        public float Weight;
     }
 }

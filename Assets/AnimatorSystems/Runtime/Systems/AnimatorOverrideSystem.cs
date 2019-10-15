@@ -2,7 +2,7 @@ using AnimatorSystems.Runtime;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [UpdateInGroup(typeof(AnimatorControllerGroup))]
     public class AnimatorOverrideSystem : ComponentSystem

@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Scripting;
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [UpdateBefore(typeof(AnimatorParametersGroup))]
     public class AnimatorControllerGroup : ComponentSystemGroup

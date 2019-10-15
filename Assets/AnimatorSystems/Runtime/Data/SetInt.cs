@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [InternalBufferCapacity(16)]
     public struct SetInt: IBufferElementData

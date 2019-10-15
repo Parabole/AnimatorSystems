@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Scripting;
-namespace Parabole.AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public class AnimatorInitializationGroup : ComponentSystemGroup
