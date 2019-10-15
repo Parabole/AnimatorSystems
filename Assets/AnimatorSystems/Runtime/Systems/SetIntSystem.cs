@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(AnimatorParametersGroup))]
     public class SetIntSystem : SetBufferElementSystem<SetInt>
     {
         protected override void SetElement(int index, SetInt elementData, Animator animator)
