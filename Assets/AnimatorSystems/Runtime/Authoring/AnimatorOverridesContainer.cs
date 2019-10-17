@@ -21,7 +21,7 @@ namespace AnimatorSystems.Runtime
                 return;
             }
             
-            OriginalController = new AnimatorOverrideController(AnimatorToOverride.runtimeAnimatorController);  
+            OriginalController = AnimatorToOverride.runtimeAnimatorController as AnimatorOverrideController;  
         }
     }
 }

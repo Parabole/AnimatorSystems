@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    [UpdateInGroup(typeof(AnimatorParametersGroup))]
     public class SetLayerWeightSystem : SetBufferElementSystem<SetLayerWeight>
     {
         protected override void SetElement(int index, SetLayerWeight elementData, Animator animator)
