@@ -9,13 +9,19 @@ namespace AnimatorSystems.Runtime
     [RequireComponent(typeof(Animator))]
     public class AnimatorOverridesContainer : MonoBehaviour
     {
+        public Animator AnimatorToOverride = null;
         [HideInInspector] public AnimatorOverrideController OriginalController;
         public AnimatorOverrideController[] Controllers;
 
         private void Awake()
         {
-            var animator = GetComponent<Animator>();
-            OriginalController = new AnimatorOverrideController(animator.runtimeAnimatorController);  
+            if (AnimatorToOverride == null)
+            {
+                Debug.LogError("The override container requires an Animator in order to operate.");
+                return;
+            }
+            
+            OriginalController = new AnimatorOverrideController(AnimatorToOverride.runtimeAnimatorController);  
         }
     }
 }
