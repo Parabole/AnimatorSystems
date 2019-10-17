@@ -8,7 +8,7 @@ namespace Parabole.AnimatorSystems
     /// <summary>
     /// Helpers to add buffer elements
     /// </summary>
-    public static class Utils 
+    public static class BufferUtils 
     {
         public static void AddFloat(int nameHash, float value, DynamicBuffer<SetFloat> buffer)
         {

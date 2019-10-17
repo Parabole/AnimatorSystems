@@ -29,9 +29,10 @@ namespace Parabole.AnimatorSystems
     
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((Animator animator, AnimatorOverridesContainer overrides) =>
+            Entities.With(query).ForEach((Entity entity, Animator animator, AnimatorOverridesContainer overrides) =>
             {
                 animator.runtimeAnimatorController = overrides.OriginalController;
+                EntityManager.RemoveComponent<SetOriginalAnimator>(entity);
             });
         }
     }
