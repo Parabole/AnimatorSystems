@@ -7,23 +7,48 @@ namespace Parabole.AnimatorSystems
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
     [UpdateInGroup(typeof(AnimatorInitializationGroup))]
-    public class StateInfoUpdateSystem : SetBufferElementSystem<CurrentStateInfo>
+    public class StateInfoUpdateSystem : ComponentSystem
     {
-        protected override void SetElement(int index, CurrentStateInfo elementData, Animator animator)
+        private EntityQueryDesc queryDesc;
+        private EntityQuery query;
+
+        protected override void OnCreate()
         {
-            var info = animator.GetCurrentAnimatorStateInfo(index);
-                    
-            elementData = new CurrentStateInfo
+            base.OnCreate();
+            queryDesc = new EntityQueryDesc
             {
-                NormalizedTime = info.normalizedTime,
-                FullPathHash = info.fullPathHash,
-                ShortNameHash = info.shortNameHash,
-                IsLooping = info.loop,
-                Speed = info.speed,
-                SpeedMultiplier = info.speedMultiplier,
-                Length = info.length,
-                TagHash = info.tagHash
+                All = new ComponentType[] 
+                {
+                    ComponentType.ReadOnly<AnimatorTag>(),
+                    ComponentType.ReadOnly<Animator>(), 
+                    ComponentType.ReadWrite<CurrentStateInfo>()
+                }
             };
+			
+            query = GetEntityQuery(queryDesc);
+        }
+        
+        protected override void OnUpdate()
+        {
+            Entities.With(query).ForEach((DynamicBuffer<CurrentStateInfo> buffer, Animator animator) =>
+            {
+                for (var i = 0; i < buffer.Length; i++)
+                {
+                    var info = animator.GetCurrentAnimatorStateInfo(i);
+                
+                    buffer[i] = new CurrentStateInfo
+                    {
+                        NormalizedTime = info.normalizedTime,
+                        FullPathHash = info.fullPathHash,
+                        ShortNameHash = info.shortNameHash,
+                        IsLooping = info.loop,
+                        Speed = info.speed,
+                        SpeedMultiplier = info.speedMultiplier,
+                        Length = info.length,
+                        TagHash = info.tagHash
+                    };
+                }
+            });
         }
     }
 }
