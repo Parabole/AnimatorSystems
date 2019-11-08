@@ -29,9 +29,6 @@ namespace Parabole.AnimatorSystems
                 
                 if (authoring.UpdateParameters) 
                     AddParameterBuffers(authoring.Animator, entity);
-                
-                if (!authoring.UpdateTransform) 
-                    RemoveTransformComponents(entity);
 
                 #if UNITY_EDITOR
                 DstEntityManager.SetName(entity, "Animator");
@@ -76,16 +73,6 @@ namespace Parabole.AnimatorSystems
 
                 stateInfoBuffer.Add(stateInfoElement);
             }
-        }
-
-        /// <summary>
-        /// Remove useless transform components added during Unity black boxed conversion
-        /// </summary>
-        private void RemoveTransformComponents(Entity entity)
-        {
-            DstEntityManager.RemoveComponent<Rotation>(entity);
-            DstEntityManager.RemoveComponent<Translation>(entity);
-            DstEntityManager.RemoveComponent<LocalToWorld>(entity);
         }
 
         /// <summary>

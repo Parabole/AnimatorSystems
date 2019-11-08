@@ -6,7 +6,6 @@ namespace AnimatorSystems.Runtime
     /// <summary>
     /// Stores a list of override controllers.
     /// </summary>
-    [RequireComponent(typeof(Animator))]
     public class AnimatorOverridesContainer : MonoBehaviour
     {
         public Animator AnimatorToOverride = null;
