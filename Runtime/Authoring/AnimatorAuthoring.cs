@@ -26,7 +26,4 @@ public class AnimatorAuthoring : MonoBehaviour
     
     [Tooltip("Enable if you expect other systems to get parameters values from the Animator.")]
     public bool UpdateParameters = true;
-
-    [Tooltip("Enable if you want this entity to have rotation, local to world and translation components.")]
-    public bool UpdateTransform = false;
 }
