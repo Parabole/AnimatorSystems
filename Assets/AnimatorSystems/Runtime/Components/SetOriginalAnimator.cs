@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace AnimatorSystems.Runtime
+namespace Parabole.AnimatorSystems
 {
     public struct SetOriginalAnimator : IComponentData
     {

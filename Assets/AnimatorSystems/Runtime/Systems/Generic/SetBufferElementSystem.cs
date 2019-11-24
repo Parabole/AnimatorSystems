@@ -3,22 +3,21 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public abstract class SetBufferElementSystem<TBufferElementData> : ComponentSystem
         where TBufferElementData : struct, IBufferElementData
     {
         private EntityQueryDesc queryDesc;
         private EntityQuery query;
 
-        protected override void OnCreate()
+        protected override void OnStartRunning()
         {
-            base.OnCreate();
+            Entities.ForEach<DotsAnimator>(Initialize);
             queryDesc = new EntityQueryDesc
             {
                 All = new ComponentType[] 
                 {
-                    ComponentType.ReadOnly<AnimatorTag>(),
-                    ComponentType.ReadOnly<Animator>(), 
+                    ComponentType.ReadOnly<DotsAnimator>(),
                     ComponentType.ReadWrite<TBufferElementData>()
                 }
             };
@@ -26,19 +25,24 @@ namespace Parabole.AnimatorSystems
             query = GetEntityQuery(queryDesc);
             RequireForUpdate(query);
         }
+
+        void Initialize(Entity entity, DotsAnimator animator)
+        {
+            EntityManager.AddBuffer<TBufferElementData>(entity);
+        }
         
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((DynamicBuffer<TBufferElementData> buffer, Animator animator) =>
+            Entities.With(query).ForEach((DynamicBuffer<TBufferElementData> buffer, DotsAnimator dotsAnimator) =>
             {
                 if (buffer.Length > 0)
                 {
-                    for (var i = 0; i < buffer.Length; i++) SetElement(i, buffer[i], animator);
+                    for (var i = 0; i < buffer.Length; i++) SetElement(i, buffer[i], dotsAnimator);
                     buffer.Clear();
                 }
             });
         }
 
-        protected abstract void SetElement(int index, TBufferElementData elementData, Animator animator);
+        protected abstract void SetElement(int index, TBufferElementData elementData, DotsAnimator dotsAnimator);
     }
 }
