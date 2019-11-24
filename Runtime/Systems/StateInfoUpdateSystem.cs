@@ -6,7 +6,7 @@ namespace Parabole.AnimatorSystems
     /// <summary>
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
-    [UpdateInGroup(typeof(AnimatorInitializationGroup))]
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class StateInfoUpdateSystem : ComponentSystem
     {
         private EntityQueryDesc queryDesc;
@@ -19,8 +19,8 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    ComponentType.ReadOnly<AnimatorTag>(),
-                    ComponentType.ReadOnly<Animator>(), 
+                    ComponentType.ReadOnly<DotsAnimator>(),
+                    ComponentType.ReadOnly<UnityEngine.Animator>(), 
                     ComponentType.ReadWrite<CurrentStateInfo>()
                 }
             };
@@ -30,7 +30,7 @@ namespace Parabole.AnimatorSystems
         
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((DynamicBuffer<CurrentStateInfo> buffer, Animator animator) =>
+            Entities.With(query).ForEach((DynamicBuffer<CurrentStateInfo> buffer, UnityEngine.Animator animator) =>
             {
                 for (var i = 0; i < buffer.Length; i++)
                 {

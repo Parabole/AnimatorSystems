@@ -1,10 +1,9 @@
-using AnimatorSystems.Runtime;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(AnimatorControllerGroup))]
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class AnimatorResetSystem : ComponentSystem
     {
         private EntityQueryDesc queryDesc;
@@ -17,8 +16,7 @@ namespace Parabole.AnimatorSystems
             {
                 All = new ComponentType[] 
                 {
-                    ComponentType.ReadOnly<Animator>(),
-                    ComponentType.ReadOnly<AnimatorOverridesContainer>(),
+                    ComponentType.ReadOnly<DotsAnimator>(),
                     ComponentType.ReadOnly<SetOriginalAnimator>() 
                 }
             };
@@ -29,9 +27,9 @@ namespace Parabole.AnimatorSystems
     
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((Entity entity, Animator animator, AnimatorOverridesContainer overrides) =>
+            Entities.With(query).ForEach((Entity entity, DotsAnimator dotsAnimator) =>
             {
-                animator.runtimeAnimatorController = overrides.OriginalController;
+                dotsAnimator.Animator.runtimeAnimatorController = dotsAnimator.OriginalController;
                 EntityManager.RemoveComponent<SetOriginalAnimator>(entity);
             });
         }

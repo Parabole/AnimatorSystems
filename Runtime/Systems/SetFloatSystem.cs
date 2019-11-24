@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(AnimatorParametersGroup))]
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class SetFloatSystem : SetBufferElementSystem<SetFloat>
     {
-        protected override void SetElement(int index, SetFloat elementData, Animator animator)
+        protected override void SetElement(int index, SetFloat elementData, DotsAnimator dotsAnimator)
         {
-            animator.SetFloat(elementData.NameHash, elementData.Value);
+            dotsAnimator.Animator.SetFloat(elementData.NameHash, elementData.Value);
         }
     }
 }

@@ -1,24 +1,21 @@
-using AnimatorSystems.Runtime;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(AnimatorControllerGroup))]
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class AnimatorOverrideSystem : ComponentSystem
     {
         private EntityQueryDesc queryDesc;
         private EntityQuery query;
 
-        protected override void OnStartRunning()
+        protected override void OnCreate()
         {
-            base.OnStartRunning();
             queryDesc = new EntityQueryDesc
             {
                 All = new ComponentType[] 
                 {
-                    ComponentType.ReadOnly<Animator>(),
-                    ComponentType.ReadOnly<AnimatorOverridesContainer>(),
+                    ComponentType.ReadOnly<DotsAnimator>(),
                     ComponentType.ReadOnly<SetAnimatorOverride>() 
                 }
             };
@@ -29,10 +26,10 @@ namespace Parabole.AnimatorSystems
         
         protected override void OnUpdate()
         {
-            Entities.With(query).ForEach((Entity entity, ref SetAnimatorOverride setOverride, Animator animator, AnimatorOverridesContainer overrides) =>
+            Entities.With(query).ForEach((Entity entity, ref SetAnimatorOverride setOverride, DotsAnimator dotsAnimator) =>
             {
-                var o = overrides.Controllers[setOverride.Index];
-                animator.runtimeAnimatorController = o;
+                var o = dotsAnimator.OverrideCollections[setOverride.CollectionIndex].Controllers[setOverride.ControllerIndex];
+                dotsAnimator.Animator.runtimeAnimatorController = o;
                 EntityManager.RemoveComponent<SetAnimatorOverride>(entity);
             });
         }
