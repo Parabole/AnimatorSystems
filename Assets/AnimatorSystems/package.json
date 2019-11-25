@@ -1,13 +1,14 @@
 {
     "name": "com.parabole.animator-systems",
-    "version": "0.3.5",
+    "version": "0.5.0",
     "displayName": "Animator Systems",
     "unity": "2019.3",
     "description": "Hybrid integration of Animator in DOTS.",
     "dependencies": 
     {
-      "com.unity.entities": "0.1.1",
+      "com.unity.entities": "0.2.0-preview.18",
       "com.unity.mathematics": "1.1.0",
-      "com.unity.jobs": "0.1.1-preview"
+      "com.unity.jobs": "0.2.0-preview.13",
+      "com.unity.burst": "1.2.0-preview.9"
     }
 }

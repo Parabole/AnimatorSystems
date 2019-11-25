@@ -11,5 +11,9 @@ namespace Parabole.AnimatorSystems
         public Animator Animator;
         public AnimatorController OriginalController;
         public AnimatorOverrideCollection[] OverrideCollections;
+
+        public bool CreateParametersBuffers;
+        public bool CreateLayersBuffer;
+        public bool CreateStateInfoBuffer;
     }
 }
