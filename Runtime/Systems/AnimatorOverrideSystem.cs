@@ -1,37 +1,37 @@
 using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
     [UpdateInGroup(typeof(PresentationSystemGroup))]
-    public class AnimatorOverrideSystem : ComponentSystem
+    public class AnimatorOverrideSystem : JobComponentSystem
     {
-        private EntityQueryDesc queryDesc;
         private EntityQuery query;
+        private EntityCommandBufferSystem ecbSystem;
 
         protected override void OnCreate()
         {
-            queryDesc = new EntityQueryDesc
-            {
-                All = new ComponentType[] 
-                {
-                    ComponentType.ReadOnly<DotsAnimator>(),
-                    ComponentType.ReadOnly<SetAnimatorOverride>() 
-                }
-            };
-			
-            query = GetEntityQuery(queryDesc);
+            query = GetEntityQuery(
+                ComponentType.ReadOnly<SetAnimatorOverride>(),
+                ComponentType.ReadOnly<DotsAnimator>());
             RequireForUpdate(query);
+            
+            ecbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         }
-        
-        protected override void OnUpdate()
+
+        protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            Entities.With(query).ForEach((Entity entity, ref SetAnimatorOverride setOverride, DotsAnimator dotsAnimator) =>
+            var cb = ecbSystem.CreateCommandBuffer();
+            
+            Entities.WithoutBurst().ForEach((Entity entity , DotsAnimator dotsAnimator, ref SetAnimatorOverride setOverride) =>
             {
                 var o = dotsAnimator.OverrideCollections[setOverride.CollectionIndex].Controllers[setOverride.ControllerIndex];
                 dotsAnimator.Animator.runtimeAnimatorController = o;
-                EntityManager.RemoveComponent<SetAnimatorOverride>(entity);
-            });
+                cb.RemoveComponent<SetAnimatorOverride>(entity);
+            }).Run();
+
+            return default;
         }
     }
 }
