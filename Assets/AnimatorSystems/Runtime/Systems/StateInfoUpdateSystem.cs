@@ -1,4 +1,5 @@
 using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
@@ -6,36 +7,30 @@ namespace Parabole.AnimatorSystems
     /// <summary>
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
-    [UpdateInGroup(typeof(AnimatorInitializationGroup))]
-    public class StateInfoUpdateSystem : ComponentSystem
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
+    public class StateInfoUpdateSystem : JobComponentSystem
     {
-        private EntityQueryDesc queryDesc;
         private EntityQuery query;
 
         protected override void OnCreate()
         {
             base.OnCreate();
-            queryDesc = new EntityQueryDesc
-            {
-                All = new ComponentType[] 
-                {
-                    ComponentType.ReadOnly<AnimatorTag>(),
-                    ComponentType.ReadOnly<Animator>(), 
-                    ComponentType.ReadWrite<CurrentStateInfo>()
-                }
-            };
-			
-            query = GetEntityQuery(queryDesc);
+            query = GetEntityQuery(
+                ComponentType.ReadOnly<DotsAnimator>(),
+                ComponentType.ReadWrite<CurrentStateInfo>(),
+                ComponentType.ReadOnly<UpdateStateInfo>());
+            
+            RequireForUpdate(query);
         }
-        
-        protected override void OnUpdate()
+
+        protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            Entities.With(query).ForEach((DynamicBuffer<CurrentStateInfo> buffer, Animator animator) =>
+            Entities.WithoutBurst().ForEach((Entity entity , DynamicBuffer<CurrentStateInfo> buffer, DotsAnimator dotsAnimator) =>
             {
                 for (var i = 0; i < buffer.Length; i++)
                 {
-                    var info = animator.GetCurrentAnimatorStateInfo(i);
-                
+                    var info = dotsAnimator.Animator.GetCurrentAnimatorStateInfo(i);
+
                     buffer[i] = new CurrentStateInfo
                     {
                         NormalizedTime = info.normalizedTime,
@@ -48,7 +43,9 @@ namespace Parabole.AnimatorSystems
                         TagHash = info.tagHash
                     };
                 }
-            });
+            }).Run();
+
+            return default;
         }
     }
 }
