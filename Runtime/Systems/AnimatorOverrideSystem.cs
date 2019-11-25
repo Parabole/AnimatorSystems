@@ -1,40 +1,37 @@
-using AnimatorSystems.Runtime;
 using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
-    [UpdateInGroup(typeof(AnimatorControllerGroup))]
-    public class AnimatorOverrideSystem : ComponentSystem
+    [UpdateInGroup(typeof(PresentationSystemGroup))]
+    public class AnimatorOverrideSystem : JobComponentSystem
     {
-        private EntityQueryDesc queryDesc;
         private EntityQuery query;
+        private EntityCommandBufferSystem ecbSystem;
 
-        protected override void OnStartRunning()
+        protected override void OnCreate()
         {
-            base.OnStartRunning();
-            queryDesc = new EntityQueryDesc
-            {
-                All = new ComponentType[] 
-                {
-                    ComponentType.ReadOnly<Animator>(),
-                    ComponentType.ReadOnly<AnimatorOverridesContainer>(),
-                    ComponentType.ReadOnly<SetAnimatorOverride>() 
-                }
-            };
-			
-            query = GetEntityQuery(queryDesc);
+            query = GetEntityQuery(
+                ComponentType.ReadOnly<SetAnimatorOverride>(),
+                ComponentType.ReadOnly<DotsAnimator>());
             RequireForUpdate(query);
+            
+            ecbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         }
-        
-        protected override void OnUpdate()
+
+        protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            Entities.With(query).ForEach((Entity entity, ref SetAnimatorOverride setOverride, Animator animator, AnimatorOverridesContainer overrides) =>
+            var cb = ecbSystem.CreateCommandBuffer();
+            
+            Entities.WithoutBurst().ForEach((Entity entity , DotsAnimator dotsAnimator, ref SetAnimatorOverride setOverride) =>
             {
-                var o = overrides.Controllers[setOverride.Index];
-                animator.runtimeAnimatorController = o;
-                EntityManager.RemoveComponent<SetAnimatorOverride>(entity);
-            });
+                var o = dotsAnimator.OverrideCollections[setOverride.CollectionIndex].Controllers[setOverride.ControllerIndex];
+                dotsAnimator.Animator.runtimeAnimatorController = o;
+                cb.RemoveComponent<SetAnimatorOverride>(entity);
+            }).Run();
+
+            return default;
         }
     }
 }
