@@ -17,7 +17,7 @@ namespace Parabole.AnimatorSystems
                 ComponentType.ReadOnly<DotsAnimator>(), 
                 ComponentType.Exclude<UpdateParameters>());
             
-            ecbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+            ecbSystem = World.GetOrCreateSystem<BeginInitializationEntityCommandBufferSystem>();
             RequireForUpdate(query);
         }
 
