@@ -57,7 +57,8 @@ namespace Parabole.AnimatorSystems
                 // Adding the buffers
                 if (hasFloat) cb.AddBuffer<SetFloat>(entity);
                 if (hasInt) cb.AddBuffer<SetInt>(entity);
-                if (hasBool || hasTrigger) cb.AddBuffer<SetBool>(entity);
+                if (hasBool) cb.AddBuffer<SetBool>(entity);
+                if (hasTrigger) cb.AddBuffer<SetTrigger>(entity);
                 
                 cb.AddComponent<UpdateParameters>(entity);
                 
