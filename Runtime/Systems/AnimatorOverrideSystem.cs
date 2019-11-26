@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class AnimatorOverrideSystem : JobComponentSystem
     {
@@ -17,7 +18,7 @@ namespace Parabole.AnimatorSystems
                 ComponentType.ReadOnly<DotsAnimator>());
             RequireForUpdate(query);
             
-            ecbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+            ecbSystem = World.GetOrCreateSystem<BeginPresentationEntityCommandBufferSystem>();
         }
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)

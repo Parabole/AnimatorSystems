@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Parabole.AnimatorSystems
 {
+    [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class AnimatorResetSystem : JobComponentSystem
     {
@@ -16,7 +17,7 @@ namespace Parabole.AnimatorSystems
                 ComponentType.ReadOnly<SetOriginalAnimator>(),
                 ComponentType.ReadOnly<DotsAnimator>());
             
-            ecbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+            ecbSystem = World.GetOrCreateSystem<BeginPresentationEntityCommandBufferSystem>();
             RequireForUpdate(query);
         }
  
