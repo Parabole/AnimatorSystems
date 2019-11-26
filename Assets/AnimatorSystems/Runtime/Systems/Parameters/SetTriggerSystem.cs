@@ -26,7 +26,7 @@ namespace Parabole.AnimatorSystems
             {
                 if (buffer.Length > 0)
                 {
-                    for (var i = 0; i < buffer.Length; i++) dotsAnimator.Animator.SetBool(buffer[i].NameHash, buffer[i].Value);
+                    for (var i = 0; i < buffer.Length; i++) dotsAnimator.Animator.SetTrigger(buffer[i].NameHash);
                     buffer.Clear();
                 }
             }).Run();
