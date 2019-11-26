@@ -7,6 +7,7 @@ namespace Parabole.AnimatorSystems
     /// <summary>
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
+    [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(PresentationSystemGroup))]
     public class StateInfoUpdateSystem : JobComponentSystem
     {
