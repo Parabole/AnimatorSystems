@@ -36,10 +36,14 @@ namespace AnimatorSystems.Runtime.Authoring
             dstManager.AddSharedComponentData(entity, dotsAnimator);
 
             // Parameters
-            if (UseFloatBuffer) dstManager.AddBuffer<SetFloat>(entity);
-            if (UseIntBuffer) dstManager.AddBuffer<SetInt>(entity);
-            if (UseBoolBuffer) dstManager.AddBuffer<SetBool>(entity);
-            if (UseTriggerBuffer) dstManager.AddBuffer<SetTrigger>(entity);
+            if (UseFloatBuffer || UseIntBuffer || UseIntBuffer || UseBoolBuffer || UseTriggerBuffer)
+            {
+                dstManager.AddComponent<UpdateParameters>(entity);
+                if (UseFloatBuffer) dstManager.AddBuffer<SetFloat>(entity);
+                if (UseIntBuffer) dstManager.AddBuffer<SetInt>(entity);
+                if (UseBoolBuffer) dstManager.AddBuffer<SetBool>(entity);
+                if (UseTriggerBuffer) dstManager.AddBuffer<SetTrigger>(entity);
+            }
             
             // Layers
             if (UseLayersBuffer) {
