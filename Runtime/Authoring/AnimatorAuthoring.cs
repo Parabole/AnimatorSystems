@@ -8,30 +8,32 @@ namespace AnimatorSystems.Runtime.Authoring
     public class AnimatorAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         public Animator Animator = null;
-        public AnimatorOverrideCollection[] OverrideCollections = null;
-        
+        public AnimatorOverrideCollection[] OverrideCollections;
         public bool CreateParametersBuffers = true;
         public bool CreateLayersBuffer = true;
-        public bool CreateStateInfoBuffer = true; 
-        
+        public bool CreateStateInfoBuffer = true;
         private RuntimeAnimatorController originalController = null;      
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             originalController = Animator.runtimeAnimatorController;
-            
-            var dotsAnimator = new DotsAnimator
-                {
-                    Animator = Animator,
-                    OriginalController =  originalController,
-                    OverrideCollections = OverrideCollections
-                };
 
             if (CreateParametersBuffers) InitializeParameters(entity, dstManager);
             if (CreateLayersBuffer) InitializeLayers(entity, dstManager);
             if (CreateStateInfoBuffer) InitializeStateInfo(entity, dstManager);
+
+            if (OverrideCollections == null)
+            {
+                Debug.Log("Collection array is null", this);
+            }
             
-            dstManager.AddComponentData(entity, dotsAnimator);
+            var dotsAnimator = new DotsAnimator
+            {
+                Animator = Animator,
+                OriginalController =  originalController,
+                OverrideCollections = OverrideCollections
+            };
+            dstManager.AddSharedComponentData(entity, dotsAnimator);
         }
 
 
