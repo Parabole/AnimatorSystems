@@ -14,11 +14,11 @@ namespace AnimatorSystems.Runtime.Authoring
         public bool CreateLayersBuffer = true;
         public bool CreateStateInfoBuffer = true; 
         
-        private AnimatorController originalController = null;      
+        private RuntimeAnimatorController originalController = null;      
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            originalController = (AnimatorController) Animator.runtimeAnimatorController;
+            originalController = Animator.runtimeAnimatorController;
             
             var dotsAnimator = new DotsAnimator
                 {

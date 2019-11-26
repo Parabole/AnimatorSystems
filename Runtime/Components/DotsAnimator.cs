@@ -8,7 +8,7 @@ namespace Parabole.AnimatorSystems
     public class DotsAnimator : IComponentData
     {
         public Animator Animator;
-        public AnimatorController OriginalController;
+        public RuntimeAnimatorController OriginalController;
         public AnimatorOverrideCollection[] OverrideCollections;
     }
 }
