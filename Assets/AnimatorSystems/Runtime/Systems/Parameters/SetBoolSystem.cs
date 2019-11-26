@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Parabole.AnimatorSystems
 {
     [AlwaysSynchronizeSystem]
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
+    [UpdateInGroup(typeof(LateSimulationSystemGroup))]
     public class SetBoolSystem : JobComponentSystem
     {
         private EntityQuery query;

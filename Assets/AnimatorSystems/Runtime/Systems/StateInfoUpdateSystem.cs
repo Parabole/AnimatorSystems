@@ -8,7 +8,7 @@ namespace Parabole.AnimatorSystems
     /// Mirror the AnimatorStateInfo in DOTS.
     /// </summary>
     [AlwaysSynchronizeSystem]
-    [UpdateInGroup(typeof(PresentationSystemGroup))]
+    [UpdateInGroup(typeof(LateSimulationSystemGroup))]
     public class StateInfoUpdateSystem : JobComponentSystem
     {
         private EntityQuery query;
