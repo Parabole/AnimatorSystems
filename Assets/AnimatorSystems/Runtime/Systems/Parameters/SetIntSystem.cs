@@ -6,6 +6,7 @@ namespace Parabole.AnimatorSystems
 {
     [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(LateSimulationSystemGroup))]
+	[UpdateAfter(typeof(AnimatorOverrideSystem))]
     public class SetIntSystem : JobComponentSystem
     {
         private EntityQuery query;
