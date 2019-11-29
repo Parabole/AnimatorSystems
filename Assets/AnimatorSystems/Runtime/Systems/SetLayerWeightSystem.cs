@@ -27,7 +27,7 @@ namespace Parabole.AnimatorSystems
             {
                 if (buffer.Length > 0)
                 {
-                    for (var i = 0; i < buffer.Length; i++) dotsAnimator.Animator.SetLayerWeight(buffer[i].LayerIndex, buffer[i].LayerIndex);
+                    for (var i = 0; i < buffer.Length; i++) dotsAnimator.Animator.SetLayerWeight(buffer[i].LayerIndex, buffer[i].Weight);
                     buffer.Clear();
                 }
             }).Run();
