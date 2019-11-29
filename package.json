@@ -1,6 +1,6 @@
 {
     "name": "com.parabole.animator-systems",
-    "version": "0.6.3",
+    "version": "0.6.4",
     "displayName": "Animator Systems",
     "unity": "2019.3",
     "description": "Hybrid integration of Animator in DOTS.",
