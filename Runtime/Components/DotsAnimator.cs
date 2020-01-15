@@ -1,6 +1,5 @@
 using System;
 using Unity.Entities;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Parabole.AnimatorSystems
