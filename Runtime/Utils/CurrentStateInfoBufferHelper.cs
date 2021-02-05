@@ -8,12 +8,19 @@ namespace Parabole.AnimatorSystems
 		internal static void UpdateBufferFromAnimator(Animator animator, DynamicBuffer<CurrentStateInfo> buffer)
 		{
 			var layerCount = animator.layerCount;
+
+			if (layerCount > buffer.Length)
+			{
+				buffer.ResizeUninitialized(layerCount);
+			}
+			
 			for (var i = 0; i < layerCount; i++)
 			{
 				var info = animator.GetCurrentAnimatorStateInfo(i);
 
-				var bufferElement = new CurrentStateInfo
+				buffer[i] = new CurrentStateInfo
 				{
+					LayerIndex = i,
 					NormalizedTime = info.normalizedTime,
 					FullPathHash = info.fullPathHash,
 					ShortNameHash = info.shortNameHash,
@@ -23,16 +30,6 @@ namespace Parabole.AnimatorSystems
 					Length = info.length,
 					TagHash = info.tagHash
 				};
-				
-				// Add or set dynamically depending on current layer count
-				if (buffer.Length > i)
-				{
-					buffer[i] = bufferElement;
-				}
-				else
-				{
-					buffer.Add(bufferElement);
-				}
 			}
 		}
 	}
