@@ -7,7 +7,7 @@ namespace Parabole.AnimatorSystems
     [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(LateSimulationSystemGroup))]
 	[UpdateAfter(typeof(AnimatorOverrideSystem))]
-    public class SetLayerWeightSystem : JobComponentSystem
+    public class SetLayerWeightSystem : SystemBase
     {
         private EntityQuery query;
 
@@ -21,7 +21,7 @@ namespace Parabole.AnimatorSystems
             RequireForUpdate(query);
         }
 
-        protected override JobHandle OnUpdate(JobHandle inputDependencies)
+        protected override void OnUpdate()
         {
             Entities.WithoutBurst().ForEach((DynamicBuffer<SetLayerWeight> buffer, DotsAnimator dotsAnimator) =>
             {
@@ -31,8 +31,6 @@ namespace Parabole.AnimatorSystems
                     buffer.Clear();
                 }
             }).Run();
- 
-            return default;
         }
     }
 }
