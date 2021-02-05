@@ -15,7 +15,7 @@ namespace Parabole.AnimatorSystems
 
 		protected override void OnUpdate()
 		{
-			Entities.WithoutBurst().WithStoreEntityQueryInField(ref query)
+			Entities.WithStructuralChanges().WithStoreEntityQueryInField(ref query)
 				.WithNone<CurrentStateInfo>()
 				.WithAll<UpdateStateInfo>()
 				.ForEach((Entity entity, DotsAnimator dotsAnimator) =>
