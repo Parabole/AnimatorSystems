@@ -52,29 +52,6 @@ namespace AnimatorSystems.Runtime.Authoring
             // State Info
             if (UseStateInfoBuffer)
             {
-                var stateInfoBuffer = dstManager.AddBuffer<CurrentStateInfo>(entity);
-                var stateInfoElement = new CurrentStateInfo();
-
-                for (int i = 0; i < Animator.layerCount; i++)
-                {
-                    var info = Animator.GetCurrentAnimatorStateInfo(i);
-                
-                    stateInfoElement = new CurrentStateInfo
-                    {
-                        LayerIndex = i,
-                        NormalizedTime = 0,
-                        FullPathHash = info.fullPathHash,
-                        ShortNameHash = info.shortNameHash,
-                        IsLooping = info.loop,
-                        Speed = info.speed,
-                        SpeedMultiplier = info.speedMultiplier,
-                        Length = info.length,
-                        TagHash = info.tagHash
-                    };
-
-                    stateInfoBuffer.Add(stateInfoElement);
-                }
-                
                 dstManager.AddComponent<UpdateStateInfo>(entity);
             }
         }

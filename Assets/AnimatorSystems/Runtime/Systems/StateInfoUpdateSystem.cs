@@ -10,24 +10,19 @@ namespace Parabole.AnimatorSystems
     [AlwaysSynchronizeSystem]
     [UpdateInGroup(typeof(LateSimulationSystemGroup))]
 	[UpdateAfter(typeof(AnimatorOverrideSystem))]
-    public class StateInfoUpdateSystem : JobComponentSystem
+    public class StateInfoUpdateSystem : SystemBase
     {
         private EntityQuery query;
 
         protected override void OnCreate()
         {
-            base.OnCreate();
-            query = GetEntityQuery(
-                ComponentType.ReadOnly<DotsAnimator>(),
-                ComponentType.ReadWrite<CurrentStateInfo>(),
-                ComponentType.ReadOnly<UpdateStateInfo>());
-            
             RequireForUpdate(query);
         }
 
-        protected override JobHandle OnUpdate(JobHandle inputDeps)
+        protected override void OnUpdate()
         {
-            Entities.WithoutBurst().ForEach((Entity entity , DynamicBuffer<CurrentStateInfo> buffer, DotsAnimator dotsAnimator) =>
+            Entities.WithoutBurst().WithStoreEntityQueryInField(ref query).WithAll<UpdateStateInfo>()
+                .ForEach((Entity entity , DynamicBuffer<CurrentStateInfo> buffer, DotsAnimator dotsAnimator) =>
             {
                 for (var i = 0; i < buffer.Length; i++)
                 {
@@ -46,8 +41,6 @@ namespace Parabole.AnimatorSystems
                     };
                 }
             }).Run();
-
-            return default;
         }
     }
 }
