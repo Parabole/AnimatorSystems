@@ -22,24 +22,9 @@ namespace Parabole.AnimatorSystems
         protected override void OnUpdate()
         {
             Entities.WithoutBurst().WithStoreEntityQueryInField(ref query).WithAll<UpdateStateInfo>()
-                .ForEach((Entity entity , DynamicBuffer<CurrentStateInfo> buffer, DotsAnimator dotsAnimator) =>
+                .ForEach((Entity entity, DynamicBuffer<CurrentStateInfo> buffer, DotsAnimator dotsAnimator) =>
             {
-                for (var i = 0; i < buffer.Length; i++)
-                {
-                    var info = dotsAnimator.Animator.GetCurrentAnimatorStateInfo(i);
-
-                    buffer[i] = new CurrentStateInfo
-                    {
-                        NormalizedTime = info.normalizedTime,
-                        FullPathHash = info.fullPathHash,
-                        ShortNameHash = info.shortNameHash,
-                        IsLooping = info.loop,
-                        Speed = info.speed,
-                        SpeedMultiplier = info.speedMultiplier,
-                        Length = info.length,
-                        TagHash = info.tagHash
-                    };
-                }
+                CurrentStateInfoBufferHelper.UpdateBufferFromAnimator(dotsAnimator.Animator, buffer);
             }).Run();
         }
     }

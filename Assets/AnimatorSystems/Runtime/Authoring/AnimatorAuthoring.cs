@@ -53,6 +53,8 @@ namespace AnimatorSystems.Runtime.Authoring
             if (UseStateInfoBuffer)
             {
                 dstManager.AddComponent<UpdateStateInfo>(entity);
+                var buffer = dstManager.AddBuffer<CurrentStateInfo>(entity);
+                CurrentStateInfoBufferHelper.UpdateBufferFromAnimator(dotsAnimator.Animator, buffer);
             }
         }
         
